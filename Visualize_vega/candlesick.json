@@ -1,0 +1,96 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "selection": {
+    "brush": {
+      "type": "interval"
+    }
+  },
+  
+   "data": {
+    "url": {
+      "%context%": true,
+      "%timefield%": "open_time",
+      "index": "_all",
+      "body": {
+      "aggs": {
+    "time_buckets": {
+      "date_histogram": {
+        "field": "open_time",
+        "calendar_interval": "1m",
+        "time_zone": "Europe/Warsaw",
+        "min_doc_count": 1
+      },
+      "aggs": {
+        "high": {
+          "max": {
+            "field": "high"
+          }
+        },
+        "open": {
+          "max": {
+            "field": "open"
+          }
+        },
+        "close": {
+          "min": {
+            "field": "close"
+          }
+        },
+        "low": {
+          "min": {
+            "field": "low"
+          }
+        },
+      }
+    }
+   
+        },
+        "size": 0
+      }
+    },
+    "format": {"property": "aggregations.time_buckets.buckets"}
+  },
+  
+
+  "encoding": {
+    "x": {
+      "field": "key",
+      "type": "temporal",
+      "title": "Date",
+    },
+    "y": {
+      "type": "quantitative",
+      "scale": {"zero": false},
+      "axis": {"title": "Price"}
+      },
+      "color": {
+      "condition": {
+        "test": "datum.open.value < datum.close.value",
+        "value": "#06982d"
+      },
+      "value": "#ae1325"
+    },
+  },
+  "layer": [
+    {
+      "mark": "rule",
+      "encoding": {
+        "y": {"field": "high.value"},
+        "y2": {"field": "low.value"}
+      }
+    },
+    {
+      "mark": { 
+      "type": "bar",
+      },
+      "encoding": {
+        "y": {"field": "close.value"},
+        "y2": {"field": "open.value"}
+      }
+    }
+  ],
+}

@@ -1,4 +1,6 @@
 data/*.zip
 data/AGOSTO_2022*
 data/AGOSTO_2022_PARQUET
-data/bitnami
+data/bitnami*
+./data
+*data
