@@ -1,3 +1,3 @@
-# traffic-flow-spark-kafka
-Testing Spark Structured Streaming and Kafka with real data from traffic sensors 
+# A small project of bigdata
+for crypto data with (spark, kafka, elasticsearch, kibana, ...)
 
